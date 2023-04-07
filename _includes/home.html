@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<style>
+
+    .home a {
+        display: block;
+        padding: 10px;
+        color: #8b0000;
+        background-color: white;
+        border-radius: 5px
+        }
+
+    .home a:hover, a:focus {
+        display: block;
+        padding: 8px;
+        color: white;
+        background-color: darkred;
+    }
+
+    td {
+        width: 180px;
+    }
+
+    .menu ul, .menu li {
+        margin: 1px;
+        padding: 0px;
+        list-style: none
+    }
+
+    .menu li {
+        float: right;
+        display: inline;
+        position: relative;
+        width: 180px;
+    }
+
+    .menu ul.menus {
+        width: 180px;
+        position: absolute;
+        display: none;
+    }
+
+    .menu ul.menus li {
+        display: block;
+        top: 5px;
+        width: 100%;
+    }
+
+    .menu li:hover ul.menus {
+        display: block
+    }
+
+    .menu ul.menus .submenu {
+        display: none;
+        position: absolute;
+        right: 180px;
+        width: 180px;
+        top: -5px;
+    }
+
+    .menu ul.menus .has-submenu:hover .submenu {
+        display: block;
+    }
+
+</style>
+</head>
+<body>
+<table class="home">
+    <tr>
+        <td><a href="{{ site.baseurl }}/">Home</a></td>
+        <td><a href="{{ site.baseurl }}/tracking">Tracking</a></td>
+        <td><a href="{{ site.baseurl }}/symptoms">Symptoms</a></td>
+        <td><a href="{{ site.baseurl }}/quiz">Quiz</a></td>
+        <td><a href="{{ site.baseurl }}/comment">Comments</a></td>
+    </tr>
+</table>
+</body>
+</html>

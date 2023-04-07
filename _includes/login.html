@@ -1,0 +1,96 @@
+<!-- https://codepen.io/FlorinPop17/pen/vPKWjd -->
+
+<style>
+    #login {
+        display: none;
+        color: white;
+        width: 40%;
+        height: 80%;
+        padding: 10%;
+        padding-top: 5px;
+        background-color: darkred;
+        position: fixed;
+        left: 50%;
+        top: 5%;
+        transform: translate(-50%, 5%);
+        z-index: 0;
+        border-radius: 20px;
+    }
+    label {
+        color: white;
+        font-size: 75%;
+    }
+    .cancel {
+        background-color: #ffffff00;
+        position: fixed;
+        top: 15px;
+        right: 20px;
+        border: none;
+        font-weight: bold;
+    }
+    button {
+	border-radius: 20px;
+	background-color: white;
+	color: darkred;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+button:focus {
+	outline: none;
+}
+
+    body {
+        font-size:larger;
+    }
+
+</style>
+<body>
+<form onsubmit="create_User()" id="login">
+    <h1><label><center>Login</center></label></h1>
+    <br>
+    <p><label>
+        Name:
+        <input type="text" name="name" id="name" required>
+    </label></p>
+    <p><label>
+        Password:
+        <input type="password" name="password" id="password" required>
+    </label></p>
+    <p><label>
+        Verify Password:
+        <input type="password" name="passwordV" id="passwordV" required>
+    </label></p>
+    <p><label>
+        Email:
+        <input type="email" name="email" id="email" required>
+    </label></p>
+    <p><label>
+        Phone Number:
+        <input type="tel" name="phone_num" id="phone_num"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            placeholder="999-999-9999">
+    </label></p>
+    <p><label>
+        Birthday:
+        <input type="date" name="dob" id="dob">
+    </label></p>
+    <br>
+    <p>
+        <button>Sign in</button>
+    </p>
+    <p class="font-size: small"><u>Don't have an account? Sign up!</u></p>
+    <button type="button" class="cancel" style="color:white" onclick="closeForm()">x</button>
+</form>
+</body>
+
+
+
