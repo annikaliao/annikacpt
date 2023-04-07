@@ -4,7 +4,10 @@
   display: none;
 }
 span {
+<<<<<<< HEAD
+=======
   color: dark red;
+>>>>>>> 3f160589d10c4b0ecb1b99750d2fb637819db077
   font-size: 30px;
 }
 h1 .title {
@@ -127,7 +130,6 @@ a.hover a.focus {
     }
   }
 </script>
-<!--table displaying data from database-->
 <table>
   <thead>
   <tr>
@@ -140,16 +142,14 @@ a.hover a.focus {
     <!-- javascript generated data -->
   </tbody>
 </table>
-<br><br>
 <script>
   // prepare HTML result container for new output
   const resultContainer = document.getElementById("periodresult");
   // prepare URL's to allow easy switch from deployment and localhost
-  //const url = "http://localhost:8087/api/periods"
-  const url = "https://flowhealth.duckdns.org/api/periods"
+  // const url = "http://localhost:8087/api/periods"
+  const url = "http://flowhealth.duckdns.org/api/periods"
   const create_fetch = url + '/create';
   const read_fetch = url + "/";
-  const delete_fetch = url + "/delete";
   // Load users on page entry
   read_users();
   // Display User Table, data is fetched from Backend Database
@@ -198,14 +198,15 @@ a.hover a.focus {
       resultContainer.appendChild(tr);
     });
   }
-  function create_user(){
+  function create_user(nextP, periodL, cycleL){
     const body = {
-        nextperiod: document.getElementById("lastperiod").value,
-        periodlength: document.getElementById("periodlength").value,
-        cyclelength: document.getElementById("cyclelength").value,
-        //nextperiod: nextP,
-        //periodlength: periodL,
-        //cyclelength: cycleL
+        // nextperiod: document.getElementById("lastperiod").value,
+        // periodlength: document.getElementById("periodlength").value,
+        // cyclelength: document.getElementById("cyclelength").value,
+        nextperiod: nextP,
+        periodlength: periodL,
+        cyclelength: cycleL,
+        nextovulation: "ov",
     };
     //alert(body.toString());
     const requestOptions = {
@@ -217,8 +218,7 @@ a.hover a.focus {
         },
     };
     // URL for Create API
-    // Fetch API call to the database to create a new user\
-    //alert(requestOptions);
+    // Fetch API call to the database to create a new user
     fetch(create_fetch, requestOptions)
       .then(response => {
         // trap error response from Web API
@@ -235,7 +235,7 @@ a.hover a.focus {
         // response contains valid result
         response.json().then(data => {
             console.log(data);
-            //add_row(data);
+            // add_row(data);
         })
     })
   }
@@ -253,114 +253,31 @@ a.hover a.focus {
     tr.appendChild(nextperiod);
     tr.appendChild(periodlength);
     tr.appendChild(cyclelength);
-    resultContainer.appendChild(tr); 
+    resultContainer.appendChild(tr);
+   
   }
   function addData(){
     if(document.getElementById("lastperiod").value&&document.getElementById("periodlength").value&&document.getElementById("cyclelength").value)
       myData = {"nextperiod": document.getElementById("lastperiod").value, "periodlength": document.getElementById("periodlength").value, "cyclelength": document.getElementById("cyclelength").value};
-    //alert("create");
-    create_user(document.getElementById("lastperiod").value, document.getElementById("periodlength").value, document.getElementById("cyclelength").value);
     add_row(myData);
+    // alert("before post");
+    create_user(myData.nextperiod, myData.periodlength, myData.cyclelength);
+    // alert("after post");
     }
-  function validate(){
-    var enterPeriod = document.getElementById('lastperiod').value
-    var periodLength = document.getElementById('periodlength').value;
-    var cycleLength = document.getElementById('cyclelength').value;
-    if(isNaN(periodLength) || isNaN(cycleLength)||periodLength < 0 || cycleLength < 10){
-      alert("Please enter valid values");
-    } else{
-      addData();
-    }
-  }
-  function delete_user() {
-  const deleteOptions = {
-        method: 'DELETE',
-        headers: {
-            "content-type": "application/json",
-            'Authorization': 'Bearer my-token',
-        },
-    };
-    fetch(delete_fetch, deleteOptions)
-      .then(response => {
-        // trap error response from Web API
-        if (response.status !== 200) {
-          window.location.reload();
-          return;
-        }
-        // response contains valid result
-        response.json().then(data => {
-            console.log(data);
-        })
-    })
-  }
-  /*function delete_user(){
-    const body = {
-        nextperiod: document.getElementById('lastperiod').value,
-        periodlength: document.getElementById('periodlength').value,
-        cyclelength: document.getElementById('cyclelength').value,
-    };
-    const requestOptions = {
-        method: 'DELETE',
-        body: JSON.stringify(body),
-        headers: {
-            "content-type": "application/json",
-            'Authorization': 'Bearer my-token',
-        },
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'omit'
-    };
-    fetch(delete_fetch, requestOptions)
-      .then(response => {
-        // trap error response from Web API
-        if (response.status !== 200) {
-          const errorMsg = 'Database delete error: ' + response.status;
-          console.log(errorMsg);
-          const tr = document.createElement("tr");
-          const td = document.createElement("td");
-          td.innerHTML = errorMsg;
-          tr.removeChild(td);
-          resultContainer.removeChild(tr);
-          return;
-        }
-        // response contains valid result
-        response.json().then(data => {
-            console.log(data);
-            //add a table row for the new/created userid
-            delete_row(data);
-        })
-      })
-        .catch(err => {
-        console.error(err);
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.innerHTML = err;
-        tr.appendChild(td);
-        resultContainer.appendChild(tr);
-      });
-    }
-  function delete_row(data){
-    const tr = document.createElement("tr");
-    const nextperiod = document.createElement("td");
-    const periodlength = document.createElement("td");
-    const cyclelength = document.createElement("td");
-    // obtain data that is specific to the API
-    nextperiod.innerHTML = data.nextperiod;
-    periodlength.innerHTML = data.periodlength;
-    cyclelength.innerHTML = data.cyclelength;
-    console.log(data)
-    // add HTML to container
-    tr.appendChild(nextperiod);
-    tr.appendChild(periodlength);
-    tr.appendChild(cyclelength);
-    resultContainer.removeChild(tr);
-  } */
+
 
 </script>
+<br>
+  <h1 style="text-align: center; color: darkred;" >&#65086;</h1>
+<br>
+
 
 {% include login.html %}
 
+
+<button action="javascript:" onclick="openForm()">
+  <p style="color: darkred;">Get reminders through phone or email!</p>
+</button>
+
+
 </body>
-
-
-
