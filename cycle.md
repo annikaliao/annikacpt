@@ -50,17 +50,22 @@ a {
 a.hover a.focus {
   background: none;
 }
+button {
+	border-radius: 20px;
+	background-color: white;
+	color: darkred;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
 </style>
 </head>
 <body>
 
-
-
-
 <h1 style="color:darkred;" >Cycle Tracker</h1>
-
-
-
 
 <div>
   <form class="tracker">
@@ -133,36 +138,32 @@ a.hover a.focus {
 <script>
   // print date of next period
   function printDate(lastperiod, cyclelength, periodlength) {
-    // get user inputs
-    //var lastperiod = document.getElementById("lastperiod").value;
-    //var cyclelength = parseInt(document.getElementById("cyclelength").value);
-    //var periodlength = parseInt(document.getElementById("periodlength").value);
-    // calculate date
-    var resDate = new Date(lastperiod);
-    for (let i = 1; i <= 3; i++) {
-      resDate.setDate(resDate.getDate() + cyclelength);
-      var year = resDate.getUTCFullYear();
-      var month = resDate.getUTCMonth() + 1;
-      var startdate = resDate.getUTCDate();
-      // print dates onto site
-      var periodstart = `${month}/${startdate}/${year}`;
-      document.getElementById(`period${i}start`).innerHTML = periodstart;
-      var enddate = resDate.getUTCDate() + periodlength - 1;
-      var periodend = `${month}/${enddate}/${year}`
-      document.getElementById(`period${i}end`).innerHTML = periodend
-      resDate = new Date(periodstart)
-      // conditional for if period has unhealthy schedule
-      if(parseInt(periodlength) <= 2) {
-        document.getElementById("unhealthy").innerHTML = "NOTICE: Your period is abnormally short. This may be a sign of some health concerns. <a href=\"https://www.everydayhealth.com/pms/short-periods.aspx#:~:text=A%20short%20menstrual%20period%20might,even%20a%20serious%20medical%20problem.\">Learn More</a>"
-        } else {
-        document.getElementById('unhealthy').innerHTML = "";
-      }
+  // calculate dates and store in array
+  var dates = [];
+  var resDate = new Date(lastperiod);
+  for (let i = 1; i <= 3; i++) {
+    resDate.setDate(resDate.getDate() + cyclelength);
+    var year = resDate.getUTCFullYear();
+    var month = resDate.getUTCMonth() + 1;
+    var startdate = resDate.getUTCDate();
+    var periodstart = `${month}/${startdate}/${year}`;
+    var enddate = resDate.getUTCDate() + periodlength - 1;
+    var periodend = `${month}/${enddate}/${year}`;
+    dates.push([periodstart, periodend]);
+    resDate = new Date(periodstart);
+  }
+  // update HTML with dates
+  for (let i = 1; i <= 3; i++) {
+    var periodstart = dates[i-1][0];
+    var periodend = dates[i-1][1];
+    document.getElementById(`period${i}start`).innerHTML = periodstart;
+    document.getElementById(`period${i}end`).innerHTML = periodend;
+    if(parseInt(periodlength) <= 2) {
+      document.getElementById("unhealthy").innerHTML = "NOTICE: Your period is abnormally short. This may be a sign of some health concerns. <a href=\"https://www.everydayhealth.com/pms/short-periods.aspx#:~:text=A%20short%20menstrual%20period%20might,even%20a%20serious%20medical%20problem.\">Learn More</a>"
+    } else {
+      document.getElementById('unhealthy').innerHTML = "";
     }
+   }
   }
 </script>
-
-
-{% include login.html %}
-
-
 </body>
